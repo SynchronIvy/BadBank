@@ -7,7 +7,7 @@ function Deposit(){
     console.log(balance);
     
     function handleDeposit(){
-        setBalance(balance + deposit);
+        setBalance(+balance + +deposit);
         console.log(deposit);
         return;
     }
@@ -19,7 +19,7 @@ function Deposit(){
             header= "Make a Deposit"
             body= {(
                 <>
-                    Account Balance: {balance} <br/>
+                    Account Balance: ${balance} <br/>
                     Deposit Amount<br/>
                     <input type="number" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
                         setDisabled(false);
@@ -33,5 +33,5 @@ function Deposit(){
         </div>
     );
 
-    console.log(balance + deposit)
+    
 }

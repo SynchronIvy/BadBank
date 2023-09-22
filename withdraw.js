@@ -17,7 +17,7 @@ function Withdraw(){
             header= "Make a Withdrawal"
             body= {(
                 <>
-                    Account Balance: {balance} <br/>
+                    Account Balance: ${balance} <br/>
                     Deposit Amount<br/>
                     <input type="number" className="form-control" id="withdraw" placeholder="Enter deposit amount" value={withdrawal} onChange={e => {
                         setDisabled(false);
