@@ -13,6 +13,7 @@ function CreateAccount(){
         if (!field){
             setStatus('Error: Please enter ' + label);
             setTimeout(()=> setStatus(''), 3000);
+            setDisabled(true);
             return false;
         }
         return true;
