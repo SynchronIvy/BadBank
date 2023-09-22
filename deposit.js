@@ -4,7 +4,10 @@ function Deposit(){
     const [balance, setBalance] = React.useState(0);
     const ctx = React.useContext(UserContext);
 
+    console.log(balance);
+    
     function handleDeposit(){
+        setBalance(balance + deposit);
         console.log(deposit);
         return;
     }
@@ -18,7 +21,7 @@ function Deposit(){
                 <>
                     Account Balance: {balance} <br/>
                     Deposit Amount<br/>
-                    <input type="input" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
+                    <input type="number" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
                         setDisabled(false);
                         setDeposit(e.currentTarget.value);
                         }
@@ -29,4 +32,6 @@ function Deposit(){
         />
         </div>
     );
+
+    console.log(balance + deposit)
 }
