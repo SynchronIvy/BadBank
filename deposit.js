@@ -1,15 +1,40 @@
 function Deposit(){
+    const [show, setShow] = React.useState(true);
+    const [status, setStatus] = React.useState('');
     const [deposit, setDeposit] = React.useState(0);
     const [disabled, setDisabled] = React.useState(true);
-    const [balance, setBalance] = React.useState(0);
+    const [balance, setBalance] = React.useState(100);
     const ctx = React.useContext(UserContext);
 
-    console.log(balance);
+    function validate(deposit){
+        if (!deposit){
+            setStatus('Error: Must enter a deposit amount');
+            setTimeout(()=> setStatus(''), 3000);
+            setDisabled(true);
+            return false;
+        };
+        if (parseFloat(deposit) <= 0){
+            setStatus('Error: Deposit must be more than zero');
+            setTimeout(()=> setStatus(''), 3000);
+            setDisabled(true);
+            return false;
+
+        };
+        return true;
+    }
     
     function handleDeposit(){
+        if(!validate(deposit)) return;
         setBalance(+balance + +deposit);
+        setShow(false);
         console.log(deposit);
         return;
+    }
+
+    function clearForm(){
+        setDeposit(0);
+        setShow(true);
+        setDisabled(true);
     }
 
     return (
@@ -17,16 +42,23 @@ function Deposit(){
         <Card
             bgcolor= "primary"
             header= "Make a Deposit"
-            body= {(
+            status= {status}
+            body= {show ? (
                 <>
                     Account Balance: ${balance} <br/>
-                    Deposit Amount<br/>
+                    Deposit Amount:<br/>
                     <input type="number" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
                         setDisabled(false);
                         setDeposit(e.currentTarget.value);
                         }
                     }/><br/>
                     <button type="submit" className="btn btn-light" onClick={handleDeposit} disabled={disabled}>Submit Deposit</button>
+                </>
+            ) : (
+                <> 
+                <h5>Success!<br/>
+                New Balance: ${balance}</h5>
+                <button type="submit" className="btn btn-light" onClick={clearForm}>Make another deposit</button>
                 </>
             )} 
         />

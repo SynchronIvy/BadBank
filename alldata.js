@@ -6,13 +6,13 @@ function AllData(){
           bgcolor="primary"
           header="All Data"
           body= {(
+            <>
             <li>Make user submissions appear here somehow</li>
+            <li>{JSON.stringify(ctx)}</li></>
           )}
           
         />
         </div>
-       // <h1>All Data<br/>
-         //   {JSON.stringify(ctx)}
-        //</h1>
+       
     );
 }

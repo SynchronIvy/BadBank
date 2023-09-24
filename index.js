@@ -1,4 +1,5 @@
 function Spa(){
+    
     return (
         <HashRouter>
             <NavBar/>
