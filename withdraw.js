@@ -1,38 +1,44 @@
 function Withdraw(){
     const [show, setShow] = React.useState(true);
     const [status, setStatus] = React.useState('');
-    const [withdrawal, setWithdrawal] = React.useState(0);
+    const [withdrawal, setWithdrawal] = React.useState('');
     const [disabled, setDisabled] = React.useState(true);
-    const [balance, setBalance] = React.useState(100);
+    const [balance, setBalance] = React.useState('100');
     const ctx = React.useContext(UserContext);
 
-    function validate(withdrawal, balance){
-        if (withdrawal <= 0){
+    function validate(withdrawal){
+        if (parseFloat(withdrawal) <= 0){
             setStatus('Error: Must enter a valid withdrawal amount');
             setTimeout(()=> setStatus(''), 3000);
             setDisabled(true);
             return false;
         };
-        if (balance <= withdrawal){
+        if (parseFloat(withdrawal) > parseFloat(balance)){
             setStatus('Error: Withdrawal amount must not exceed account balance');
             setTimeout(()=> setStatus(''), 3000);
             setDisabled(true);
             return false;
 
         };
+        if(isNaN(withdrawal)){
+            setStatus('Error: Amount must be a number');
+            setTimeout(()=> setStatus(''), 3000);
+            setDisabled(true);
+            return false;
+        }
         return true;
     }
 
     function handleWithdrawal(){
         if(!validate(withdrawal)) return;
-        setBalance(balance - withdrawal);
+        setBalance(parseFloat(balance) - parseFloat(withdrawal));
         setShow(false);
         console.log(withdrawal);
         return;
     }
 
     function clearForm(){
-        setWithdrawal(0);
+        setWithdrawal('');
         setShow(true);
         setDisabled(true);
     }
@@ -46,8 +52,8 @@ function Withdraw(){
             body= {show ? (
                 <>
                     Account Balance: ${balance} <br/>
-                    Deposit Amount<br/>
-                    <input type="number" className="form-control" id="withdraw" placeholder="Enter deposit amount" value={withdrawal} onChange={e => {
+                    Withdrawal Amount:<br/>
+                    <input type="text" className="form-control" id="withdraw" placeholder="Enter deposit amount" value={withdrawal} onChange={e => {
                         setDisabled(false);
                         setWithdrawal(e.currentTarget.value);
                         }

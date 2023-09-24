@@ -1,9 +1,9 @@
 function Deposit(){
     const [show, setShow] = React.useState(true);
     const [status, setStatus] = React.useState('');
-    const [deposit, setDeposit] = React.useState(0);
+    const [deposit, setDeposit] = React.useState('');
     const [disabled, setDisabled] = React.useState(true);
-    const [balance, setBalance] = React.useState(100);
+    const [balance, setBalance] = React.useState('100');
     const ctx = React.useContext(UserContext);
 
     function validate(deposit){
@@ -20,19 +20,25 @@ function Deposit(){
             return false;
 
         };
+        if(isNaN(deposit)) {
+            setStatus('Error: please enter a number');
+            setTimeout(()=> setStatus(''), 3000);
+            setDisabled(true);
+            return false;
+        }
         return true;
     }
     
     function handleDeposit(){
         if(!validate(deposit)) return;
-        setBalance(+balance + +deposit);
+        setBalance(parseFloat(balance) + parseFloat(deposit));
         setShow(false);
         console.log(deposit);
         return;
     }
 
     function clearForm(){
-        setDeposit(0);
+        setDeposit('');
         setShow(true);
         setDisabled(true);
     }
@@ -47,7 +53,7 @@ function Deposit(){
                 <>
                     Account Balance: ${balance} <br/>
                     Deposit Amount:<br/>
-                    <input type="number" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
+                    <input type="text" className="form-control" id="deposit" placeholder="Enter deposit amount" value={deposit} onChange={e => {
                         setDisabled(false);
                         setDeposit(e.currentTarget.value);
                         }
@@ -64,6 +70,4 @@ function Deposit(){
         />
         </div>
     );
-
-    
 }
