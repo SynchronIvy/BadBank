@@ -7,8 +7,12 @@ function AllData(){
           header="All Data"
           body= {(
             <>
-            <li>Make user submissions appear here somehow</li>
-            <li>{JSON.stringify(ctx)}</li></>
+            {ctx.map(function(data) {
+                return (
+                    <li>{data}</li>
+                )
+            })}
+            </>
           )}
           
         />
