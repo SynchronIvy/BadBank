@@ -32,6 +32,7 @@ function Deposit(){
     function handleDeposit(){
         if(!validate(deposit)) return;
         setBalance(parseFloat(balance) + parseFloat(deposit));
+        ctx.push('Successful deposit, amount: $' + deposit);
         setShow(false);
         console.log(deposit);
         return;

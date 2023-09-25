@@ -34,7 +34,7 @@ function CreateAccount(){
         if(!validate(email, 'email')) return;
         if(!validate(password, 'password')) return;
         if(!validatePw(password)) return;
-        ctx.push(name, email, password);
+        ctx.push('Account created for: ' + name);
         setShow(false);
     }
 

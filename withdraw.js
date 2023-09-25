@@ -32,6 +32,7 @@ function Withdraw(){
     function handleWithdrawal(){
         if(!validate(withdrawal)) return;
         setBalance(parseFloat(balance) - parseFloat(withdrawal));
+        ctx.push('Successful withdrawal, amount: $' + withdrawal);
         setShow(false);
         console.log(withdrawal);
         return;
